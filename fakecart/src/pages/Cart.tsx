@@ -7,6 +7,7 @@ const Cart: React.FC = () => {
   ];
 
   const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+  
   return (
     <>
       <section className='p-4 max-w-2xl mx-auto mt-10 bg-white rounded shadow'>
