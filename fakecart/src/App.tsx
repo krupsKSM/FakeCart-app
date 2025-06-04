@@ -3,7 +3,7 @@ import Header from './components/header/Header'
 import { Route,BrowserRouter as Router, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
-import Cart from './pages/Cart'
+import Cart from './components/cart/CartStatic'
 
 
 const App: React.FC = () => {
