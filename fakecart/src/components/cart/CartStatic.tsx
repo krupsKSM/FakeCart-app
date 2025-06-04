@@ -2,7 +2,7 @@ import React from 'react'
 
 const CartStatic: React.FC = () => {
   const cartItems = [
-    { id: 1, name: "Apple Iphone 14", price: 79999 },
+    { id: 1, name: "Apple Iphone 14", price: 59999 },
     { id: 2, name: "Samsung Galaxy S23", price: 69999 },
   ];
 
