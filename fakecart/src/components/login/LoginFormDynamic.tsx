@@ -60,7 +60,7 @@ const LoginFormDynamic = () => {
   }
   return (
     <>
-      <section className='p-4 max-wd-md mx-auto mt-10 bg-slate-400 rounded shadow'>
+      <section className='p-4 max-wd-md mx-auto mt-10 bg-slate-100 rounded shadow'>
         <h2 className="tetx-xl font-semibold mb-4">Login to FakeCart</h2>
 
         <form onSubmit={handleSubmit} className='space-y-4 text-left'>
