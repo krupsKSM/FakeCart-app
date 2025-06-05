@@ -1,14 +1,14 @@
 import React from 'react'
+import HomeStatic from '../components/home/HomeStatic'
+import type { Product } from '../types/Product';
 
-const Home : React.FC = () => {
-  return (
-    <>
-        <section className='p-4'>
-            <h1 className='text-2xl font-bold mb-4 '>Welcome to FakeCart</h1>
-            <p className='text-gray-700'>Browse our amzing fake products at unbeatble FAKE prices</p>
-        </section>
-    </>
-  )
-}
+type HomeProps = {
+  products: Product[];
+  addToCart: (product: Product) => void;
+};
+
+const Home = ({ products, addToCart }: HomeProps) => {
+  return <HomeStatic products={products} addToCart={addToCart} />;
+};
 
 export default Home
