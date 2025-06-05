@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import type { Product } from '../../types/Product'
 import ProductList from '../product/ProductList'
+import type { HomeProps } from '../../types/HomeProps'
 
-type HomeDynamicProps = {
-    addToCart: (product: Product) => void
-}
+// type HomeDynamicProps = {
+//     addToCart: (product: Product) => void
+// }
 
 
-const HomeDynamic = ({ addToCart }: HomeDynamicProps) => {
+const HomeDynamic = ({ addToCart }: HomeProps) => {
 
     // 1. State to hold products fetched from API
     const [products, setProducts] = useState<Product[]>([])
