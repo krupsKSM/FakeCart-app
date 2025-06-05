@@ -49,7 +49,7 @@ const LoginFormDynamic = () => {
     return Object.keys(newErrors).length === 0;
   }
 
-  // ✅ Form submission handler
+  //  Form submission handler
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
