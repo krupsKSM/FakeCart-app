@@ -10,6 +10,7 @@ import type { HomeProps } from '../../types/HomeProps'
 
 const HomeDynamic = ({ addToCart }: HomeProps) => {
 
+
     // State to hold products fetched from API
     const [products, setProducts] = useState<Product[]>([])
 
@@ -82,8 +83,6 @@ const HomeDynamic = ({ addToCart }: HomeProps) => {
             </div>
         )
     }
-
-    // If products fetched successfully, show UI
 
     // Render a heading and the ProductList component with fetched products
     return (
