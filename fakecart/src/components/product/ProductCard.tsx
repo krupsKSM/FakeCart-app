@@ -11,7 +11,7 @@ type ProductCardProps = {
 // Define the component and destructure props directly with their type
 // This is the preferred, modern style instead of using React.FC
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product , addToCart}: ProductCardProps) => {
     return (
         <div className="border p-4 rounded shadow">
             <img src={product.imageUrl} alt={product.name} className="w-full h-40 object-cover mb-2" />
