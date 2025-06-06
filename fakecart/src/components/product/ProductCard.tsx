@@ -5,6 +5,7 @@ import type { Product } from '../../types/Product';
 // We're saying: every product must have a `name` (string) and a `price` (number)
 type ProductCardProps = {
     product: Product;
+    addToCart: (product: Product) => void;
 };
 
 // Define the component and destructure props directly with their type
@@ -16,6 +17,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <img src={product.imageUrl} alt={product.name} className="w-full h-40 object-cover mb-2" />
             <h3 className="text-lg font-bold">{product.name}</h3>
             <p className="text-gray-600">Rs {product.price}</p>
+            <button
+        onClick={() => addToCart(product)}
+        className="mt-2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-green-600"
+      >
+        Add to Cart
+      </button>
         </div>
     )
 }
