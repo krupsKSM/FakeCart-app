@@ -19,7 +19,10 @@ const ProductList = ({ products, addToCart }: ProductListProps) => {
                     {/* Render each product using ProductCard component */}
                     {products.map((product) => (
                         <ProductCard
-                            key={product.id} product={product} />
+                            key={product.id} 
+                            product={product}
+                            addToCart={addToCart}
+                         />
 
                     ))}
                 </div>
