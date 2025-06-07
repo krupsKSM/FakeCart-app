@@ -5,31 +5,35 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import Login from './pages/Login'
 import Cart from './pages/Cart'
 import { useState } from 'react'
-import headphone from './assets/images/headphone.jpg'
+
+//----------------imports for static rendering---------------
+// import headphone from './assets/images/headphone.jpg'
+// import smartwatch from './assets/images/smartwatch.jpg';
+// import mouse from './assets/images/mouse.jpg';
+// -------------------------------------------------------
 import type { Product } from './types/Product'
-import smartwatch from './assets/images/smartwatch.jpg';
-import mouse from './assets/images/mouse.jpg';
 import Home from './pages/Home'
 
 
 
 const App: React.FC = () => {
 
-  // 1. Products state (dummy list)
-  const [products] = useState<Product[]>([{
-    id: 1, name: 'Wireless Headphones', price: 99.99, imageUrl: headphone
-  },
-  {
-    id: 2, name: 'Smart Watch', price: 149.99, imageUrl: smartwatch
-  },
-  {
-    id: 3, name: 'Gaming Mouse', price: 49.99, imageUrl: mouse
-  }]);
+  //---Products state (dummy list) only for static rendering initially
+  // const [products] = useState<Product[]>([{
+  //   id: 1, name: 'Wireless Headphones', price: 99.99, imageUrl: headphone
+  // },
+  // {
+  //   id: 2, name: 'Smart Watch', price: 149.99, imageUrl: smartwatch
+  // },
+  // {
+  //   id: 3, name: 'Gaming Mouse', price: 49.99, imageUrl: mouse
+  // }]);
+  // --------------------------------------------------------------
 
-  // 2. Cart state (array of {product, quantity})
+  //  Global Cart state (array of {product, quantity})
   const [cartItems, setCartItems] = useState<{ product: Product, quantity: number }[]>([])
 
-  // 3. addToCart function
+  //  addToCart logic
   const addToCart = (product: Product) => {
     setCartItems((prevItems) => {
       const existing = prevItems.find(item => item.product.id === product.id)
@@ -55,7 +59,9 @@ const App: React.FC = () => {
         <Routes>
           {/* Pass products and addToCart to Home */}
           <Route
-            path="/" element={<Home products={products} addToCart={addToCart} />}
+            path="/" element={<Home 
+              // products={products}  --> static rendering  
+              addToCart={addToCart} />}
           // path='/'
           // element={<Home />}
           />
@@ -66,7 +72,7 @@ const App: React.FC = () => {
 
           <Route
             path='/cart'
-            element={<Cart />} />
+            element={<Cart cartItems={cartItems}  setCartItems={setCartItems}/>} />
         </Routes>
       </main>
     </Router>
