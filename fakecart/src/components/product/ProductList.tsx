@@ -1,10 +1,11 @@
 import React from 'react'
 import ProductCard from './ProductCard';
-import type { Product } from '../../types/Product';
+// import type { Product } from '../../types/Product';
+import type { Product } from '../../types';
 
 type ProductListProps = {
-  products: Product[];
-  addToCart: (product: Product) => void;
+    products: Product[];
+    addToCart: (product: Product) => void;
 };
 
 const ProductList = ({ products, addToCart }: ProductListProps) => {
@@ -19,10 +20,10 @@ const ProductList = ({ products, addToCart }: ProductListProps) => {
                     {/* Render each product using ProductCard component */}
                     {products.map((product) => (
                         <ProductCard
-                            key={product.id} 
+                            key={product.id}
                             product={product}
                             addToCart={addToCart}
-                         />
+                        />
 
                     ))}
                 </div>

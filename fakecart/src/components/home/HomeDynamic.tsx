@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import type { Product } from '../../types/Product'
+
 import ProductList from '../product/ProductList'
-import type { HomeProps } from '../../types/HomeProps'
+import type { Product, HomeProps } from '../../types';
 
 // type HomeDynamicProps = {
 //     addToCart: (product: Product) => void

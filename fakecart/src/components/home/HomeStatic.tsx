@@ -1,7 +1,7 @@
 import React from 'react'
 import type { Product } from '../../types/Product'
 import ProductList from '../product/ProductList';
-import type { HomeProps } from '../../types/HomeProps';
+import type { HomeProps } from '../../types';
 
 
 const HomeStatic = ({ products = [], addToCart }: HomeProps) => {

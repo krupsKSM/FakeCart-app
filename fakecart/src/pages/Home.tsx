@@ -1,7 +1,8 @@
 import React from 'react'
 // import HomeStatic from '../components/home/HomeStatic'
 // import type { Product } from '../types/Product';
-import type { HomeProps } from '../types/HomeProps';
+// import type { HomeProps } from '../types/HomeProps';
+import type { HomeProps } from '../types';
 import HomeDynamic from '../components/home/HomeDynamic';
 
             // used for HomeStatic

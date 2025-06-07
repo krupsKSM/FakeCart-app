@@ -1,5 +1,6 @@
 import React from 'react'
-import type { Product } from '../../types/Product';
+// import type { Product } from '../../types/Product';
+import type { Product } from '../../types';
 
 // Define the shape of props (this is a TypeScript *type alias*)
 // We're saying: every product must have a `name` (string) and a `price` (number)

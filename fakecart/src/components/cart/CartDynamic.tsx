@@ -1,6 +1,6 @@
 // Import React and useState hook from React
 import React, { useState } from 'react';
-import type { Product } from '../../types/Product';
+import type { Product } from '../../types';
 
 // -----------Static
 //  Define the structure (TypeScript type) for a cart item

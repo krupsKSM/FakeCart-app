@@ -1,5 +1,5 @@
 import LoginFormDynamic from '../components/login/LoginFormDynamic';
-import LoginFormStatic from '../components/login/LoginFormStatic';
+// import LoginFormStatic from '../components/login/LoginFormStatic';
 
 const Login = () => {
   return (

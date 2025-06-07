@@ -1,7 +1,7 @@
 import React from 'react'
-import CartStatic from '../components/cart/CartStatic'
+// import CartStatic from '../components/cart/CartStatic'
 import CartDynamic from '../components/cart/CartDynamic'
-import type { Product } from '../types/Product';
+import type { Product } from '../types';
 
 
 type CartPageProps = {
