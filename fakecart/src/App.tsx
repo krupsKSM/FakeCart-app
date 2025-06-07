@@ -13,6 +13,7 @@ import { useState } from 'react'
 // -------------------------------------------------------
 import type { Product } from './types/Product'
 import Home from './pages/Home'
+import { updateCartItems } from './utils/cartUtils'
 
 
 
@@ -35,22 +36,8 @@ const App: React.FC = () => {
 
   //  addToCart logic
   const addToCart = (product: Product) => {
-    setCartItems((prevItems) => {
-      const existing = prevItems.find(item => item.product.id === product.id)
-
-      if (existing) {
-        return (prevItems.map((item) => (
-          item.product.id === product.id
-            ? { ...item, quantity: item.quantity < 10 ? item.quantity + 1 : 10 }
-            : item
-        )));
-      }
-      else
-        return [...prevItems, { product, quantity: 1 }]
-    })
+    setCartItems((prevItems) => updateCartItems(prevItems , product))
   }
-
-
 
   return (
     <Router>
