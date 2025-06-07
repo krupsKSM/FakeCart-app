@@ -1,25 +1,30 @@
 // Import React and useState hook from React
 import React, { useState } from 'react';
+import type { Product } from '../../types/Product';
 
+// -----------Static
 //  Define the structure (TypeScript type) for a cart item
-type CartItem = {
-    id: number;         // Unique identifier for each item (for keying and operations)
-    name: string;       // Name of the product
-    price: number;      // Price of a single unit
-    quantity: number;   // Quantity of this item in the cart
+// type CartItem = {
+//     id: number;         // Unique identifier for each item (for keying and operations)
+//     name: string;       // Name of the product
+//     price: number;      // Price of a single unit
+//     quantity: number;   // Quantity of this item in the cart
+// };
+
+type CartDynamicProps = {
+    cartItems: { product: Product; quantity: number }[];
+    setCartItems: React.Dispatch<React.SetStateAction<{ 
+    product: Product; 
+    quantity: number 
+    }[]>>;
 };
 
-//Define the CartDynamic component (our dynamic cart logic lives here)
-const CartDynamic = () => {
-    //Initialize cart items with 2 default products (to simulate added products)
-    const [cartItems, setCartItems] = useState<CartItem[]>([
-        { id: 1, name: 'Apple iPhone 14', price: 79999, quantity: 1 },
-        { id: 2, name: 'Samsung Galaxy S23', price: 69999, quantity: 2 },
-    ]);
 
+//Define the CartDynamic component (our dynamic cart logic lives here)
+const CartDynamic = ({ cartItems, setCartItems }: CartDynamicProps) => {
     //Calculate the total cost using reduce
     const total = cartItems.reduce(
-        (sum, item) => sum + item.price * item.quantity,
+        (sum, item) => sum + item.product.price * item.quantity,
         0
     );
 
@@ -35,13 +40,13 @@ const CartDynamic = () => {
 
     const handleIncrement = (id: number) => {
         setCartItems(prevItems =>
-        (prevItems.map(item => item.id === id
+        (prevItems.map(item => item.product.id === id
             ? { ...item, quantity: Math.min(item.quantity + 1, 10) } : item
         )
         ));
     };
 
-            // Decrease the quantity of the item with the given id, ask before removing if quantity will go below 1
+    // Decrease the quantity of the item with the given id, ask before removing if quantity will go below 1
 
     // const handleDecrement = (id: number) => {
     //     const updatedItems = cartItems.map((item) => (
@@ -52,33 +57,33 @@ const CartDynamic = () => {
     // }
 
     const handleDecrement = (id: number) => {
-        const item = cartItems.find(item => item.id === id)
+        const item = cartItems.find(item => item.product.id === id)
 
-        if(!item) return;
+        if (!item) return;
 
-        if(item.quantity === 1){
+        if (item.quantity === 1) {
             const confirmDelete = window.confirm("Do you still want to remove this item from cart")
 
-            if(!confirmDelete)
+            if (!confirmDelete)
                 return;
         }
         setCartItems(prevItems => prevItems.map(
-        item => item.id === id ? {...item , quantity: item.quantity -1}:item
-    ).filter(item => item.quantity > 0))
+            item => item.product.id === id ? { ...item, quantity: item.quantity - 1 } : item
+        ).filter(item => item.quantity > 0))
     }
 
     const handleDelete = (id: number) => {
         const confirmDelete = window.confirm("Are you sure you want to remove this item?");
         // true if the user clicks OK
         // false if the user clicks Cancel
-        
+
         // If the user clicks Cancel, stop right here. Don’t continue.
         if (!confirmDelete) return;
 
-        setCartItems(prevItems => prevItems.filter(item => item.id !== id));
+        setCartItems(prevItems => prevItems.filter(item => item.product.id !== id));
     };
 
-   
+
     return (
         <section className="p-4 max-w-2xl mx-auto mt-10 bg-white rounded shadow">
             <h2 className="text-2xl font-semibold mb-4">Your Cart</h2>
@@ -91,31 +96,32 @@ const CartDynamic = () => {
                     {/* Render all cart items */}
                     <ul className="space-y-3">
                         {cartItems.map((item) => (
+                            // we can also destructure item into {cartItems.map(({ product, quantity }) 
                             <li
-                                key={item.id}
+                                key={item.product.id}
                                 className="flex justify-between border-b pb-2 text-gray-700"
                             >
                                 <div>
-                                    <p className="font-medium">{item.name}</p>
+                                    <p className="font-medium">{item.product.name}</p>
                                     <p className="text-sm text-gray-500">
-                                        ₹{item.price} × {item.quantity}
+                                        ₹{item.product.price} × {item.quantity}
                                     </p>
                                 </div>
                                 <span className="font-semibold">
-                                    ₹{item.price * item.quantity}
+                                    ₹{item.product.price * item.quantity}
                                 </span>
 
                                 {/*Quantity controls */}
                                 <div className="flex items-center space-x-2">
                                     <button
-                                        onClick={() => handleDecrement(item.id)}
+                                        onClick={() => handleDecrement(item.product.id)}
                                         className="px-2 bg-gray-200 rounded hover:bg-gray-300"
                                     >
                                         -
                                     </button>
                                     <span>{item.quantity}</span>
                                     <button
-                                        onClick={() => handleIncrement(item.id)}
+                                        onClick={() => handleIncrement(item.product.id)}
                                         className="px-2 bg-gray-200 rounded hover:bg-gray-300"
                                     >
                                         +
@@ -123,7 +129,7 @@ const CartDynamic = () => {
 
                                     {/* ✅ Delete button */}
                                     <button
-                                        onClick={() => handleDelete(item.id)}
+                                        onClick={() => handleDelete(item.product.id)}
                                         className="text-red-500 hover:underline text-sm ml-4"
                                     >
                                         Remove
