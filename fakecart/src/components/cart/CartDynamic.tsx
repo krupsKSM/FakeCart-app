@@ -1,6 +1,7 @@
 // Import React and useState hook from React
-import React, { useState } from 'react';
-import type { Product } from '../../types';
+// import React, { useState } from 'react';
+// import type { CartItem, Product } from '../../types';
+import { useCart } from '../../context/CartContext';
 
 // -----------Static
 //  Define the structure (TypeScript type) for a cart item
@@ -11,20 +12,19 @@ import type { Product } from '../../types';
 //     quantity: number;   // Quantity of this item in the cart
 // };
 
-type CartDynamicProps = {
-    cartItems: { product: Product; quantity: number }[];
-    setCartItems: React.Dispatch<React.SetStateAction<{ 
-    product: Product; 
-    quantity: number 
-    }[]>>;
-};
+// type CartDynamicProps = {
+//     cartItems: CartItem[];
+//     setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
+// };
 
 
 //Define the CartDynamic component (our dynamic cart logic lives here)
-const CartDynamic = ({ cartItems, setCartItems }: CartDynamicProps) => {
+const CartDynamic = () => {
+
+    const {cartItems, setCartItems} = useCart();
     //Calculate the total cost using reduce
     const total = cartItems.reduce(
-        (sum, item) => sum + item.product.price * item.quantity,
+        (sum, item) => sum + item.price * item.quantity,
         0
     );
 
@@ -40,7 +40,7 @@ const CartDynamic = ({ cartItems, setCartItems }: CartDynamicProps) => {
 
     const handleIncrement = (id: number) => {
         setCartItems(prevItems =>
-        (prevItems.map(item => item.product.id === id
+        (prevItems.map(item => item.id === id
             ? { ...item, quantity: Math.min(item.quantity + 1, 10) } : item
         )
         ));
@@ -57,7 +57,7 @@ const CartDynamic = ({ cartItems, setCartItems }: CartDynamicProps) => {
     // }
 
     const handleDecrement = (id: number) => {
-        const item = cartItems.find(item => item.product.id === id)
+        const item = cartItems.find(item => item.id === id)
 
         if (!item) return;
 
@@ -68,7 +68,7 @@ const CartDynamic = ({ cartItems, setCartItems }: CartDynamicProps) => {
                 return;
         }
         setCartItems(prevItems => prevItems.map(
-            item => item.product.id === id ? { ...item, quantity: item.quantity - 1 } : item
+            item => item.id === id ? { ...item, quantity: item.quantity - 1 } : item
         ).filter(item => item.quantity > 0))
     }
 
@@ -80,7 +80,7 @@ const CartDynamic = ({ cartItems, setCartItems }: CartDynamicProps) => {
         // If the user clicks Cancel, stop right here. Don’t continue.
         if (!confirmDelete) return;
 
-        setCartItems(prevItems => prevItems.filter(item => item.product.id !== id));
+        setCartItems(prevItems => prevItems.filter(item => item.id !== id));
     };
 
 
@@ -98,30 +98,30 @@ const CartDynamic = ({ cartItems, setCartItems }: CartDynamicProps) => {
                         {cartItems.map((item) => (
                             // we can also destructure item into {cartItems.map(({ product, quantity }) 
                             <li
-                                key={item.product.id}
+                                key={item.id}
                                 className="flex justify-between border-b pb-2 text-gray-700"
                             >
                                 <div>
-                                    <p className="font-medium">{item.product.name}</p>
+                                    <p className="font-medium">{item.name}</p>
                                     <p className="text-sm text-gray-500">
-                                        ₹{item.product.price} × {item.quantity}
+                                        ₹{item.price} × {item.quantity}
                                     </p>
                                 </div>
                                 <span className="font-semibold">
-                                    ₹{item.product.price * item.quantity}
+                                    ₹{item.price * item.quantity}
                                 </span>
 
                                 {/*Quantity controls */}
                                 <div className="flex items-center space-x-2">
                                     <button
-                                        onClick={() => handleDecrement(item.product.id)}
+                                        onClick={() => handleDecrement(item.id)}
                                         className="px-2 bg-gray-200 rounded hover:bg-gray-300"
                                     >
                                         -
                                     </button>
                                     <span>{item.quantity}</span>
                                     <button
-                                        onClick={() => handleIncrement(item.product.id)}
+                                        onClick={() => handleIncrement(item.id)}
                                         className="px-2 bg-gray-200 rounded hover:bg-gray-300"
                                     >
                                         +
@@ -129,7 +129,7 @@ const CartDynamic = ({ cartItems, setCartItems }: CartDynamicProps) => {
 
                                     {/* ✅ Delete button */}
                                     <button
-                                        onClick={() => handleDelete(item.product.id)}
+                                        onClick={() => handleDelete(item.id)}
                                         className="text-red-500 hover:underline text-sm ml-4"
                                     >
                                         Remove
