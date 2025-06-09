@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import ProductList from '../product/ProductList'
-import type { Product, HomeProps } from '../../types';
+import type { Product } from '../../types';
+import { useCart } from '../../context/CartContext';
 
 // type HomeDynamicProps = {
 //     addToCart: (product: Product) => void
 // }
 
 
-const HomeDynamic = ({ addToCart }: HomeProps) => {
+const HomeDynamic = () => {
 
-
+    // Use addToCart from context
+    const {addToCart} = useCart() ; 
+    
     // State to hold products fetched from API
     const [products, setProducts] = useState<Product[]>([])
 

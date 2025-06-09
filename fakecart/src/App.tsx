@@ -11,9 +11,10 @@ import { useState } from 'react'
 // import smartwatch from './assets/images/smartwatch.jpg';
 // import mouse from './assets/images/mouse.jpg';
 // -------------------------------------------------------
-import type { Product } from './types/Product'
+// import type { Product } from './types/Product'
 import Home from './pages/Home'
-import { updateCartItems } from './utils/cartUtils'
+import { CartProvider } from './context/CartContext'
+// import { updateCartItems } from './utils/cartUtils'
 
 
 
@@ -31,26 +32,21 @@ const App: React.FC = () => {
   // }]);
   // --------------------------------------------------------------
 
+  // used while Props drilling but later moved to CartContext.tsx 
   //  Global Cart state (array of {product, quantity})
-  const [cartItems, setCartItems] = useState<{ product: Product, quantity: number }[]>([])
-
-  //  addToCart logic
-  const addToCart = (product: Product) => {
-    setCartItems((prevItems) => updateCartItems(prevItems , product))
-  }
+  // const [cartItems, setCartItems] = useState<{ product: Product, quantity: number }[]>([])
 
   return (
+    //CartProvider wraps the entire app to provide cart state globally
     <Router>
+    <CartProvider>
       <Header />
       <main className='p-4'>
         <Routes>
           {/* Pass products and addToCart to Home */}
           <Route
-            path="/" element={<Home 
-              // products={products}  --> static rendering  
-              addToCart={addToCart} />}
-          // path='/'
-          // element={<Home />}
+            path="/" 
+            element={<Home />}
           />
 
           <Route
@@ -59,9 +55,10 @@ const App: React.FC = () => {
 
           <Route
             path='/cart'
-            element={<Cart cartItems={cartItems}  setCartItems={setCartItems}/>} />
+            element={<Cart />} />
         </Routes>
       </main>
+    </CartProvider>
     </Router>
   )
 }
